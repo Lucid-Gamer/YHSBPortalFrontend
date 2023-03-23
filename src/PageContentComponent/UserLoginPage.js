@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Button , Form } from "react-bootstrap";
-import UserServiceObject from "../PageServiceComponent/UserService";
 import UserService from "../PageServiceComponent/UserService";
 
 const UserLoginPage = () => {
@@ -17,7 +16,8 @@ const UserLoginPage = () => {
 
   const loginSubmitHandler = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:8081/YHSBPortal/users/login",user).then((res)=>{
+    // axios.post("http://localhost:8081/YHSBPortal/users/login",user)
+    UserService.UserLoginMethod(user).then((res)=>{
           alert(res.data);
           console.log(res.data);
       }).catch((err)=>{
