@@ -1,7 +1,8 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { Button , Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import UserService from "../PageServiceComponent/UserService";
+
+const userService = new UserService();
 
 const UserLoginPage = () => {
   const [user, setUser] = useState({
@@ -10,39 +11,40 @@ const UserLoginPage = () => {
   });
 
   const changeHandler = (e) => {
-    const { name , value } = e.target;
-    setUser({...user,[name]:value})
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value })
   };
 
   const loginSubmitHandler = (e) => {
     e.preventDefault();
-    // axios.post("http://localhost:8081/YHSBPortal/users/login",user)
-    UserService.UserLoginMethod(user).then((res)=>{
-          alert(res.data);
-          console.log(res.data);
-      }).catch((err)=>{
-          console.log(err);
-      })
+    //axios.post("http://localhost:8081/YHSBPortal/users/login",user).then((res) => {
+      userService.UserLoginMethod(user);
+    return user;
   };
 
   return (
-    <div className="col-8 mt-6 ms-5">
-        <center>
-        <Form onSubmit={(e)=>loginSubmitHandler(e)}>
-          <Form.Group className="row" controlId="formBasicEmail">
-            <Form.Label className="col-2">Username</Form.Label>
-            <Form.Control type="text" name="username" className="col-3" onChange={(e)=>changeHandler(e)} value={user.username}></Form.Control>
-          </Form.Group>
-          <Form.Group className="row">
-            <Form.Label className="col-2">Password</Form.Label>
-            <Form.Control type="password" name="password" className="col-3" value={user.password} onChange={(e)=>changeHandler(e)}></Form.Control>
-          </Form.Group>
-          <Form.Group>
-            <Button className="btn btn-primary" type="submit" value="Submit">Submit</Button>
-          </Form.Group>
-        </Form>
-        </center>
-    </div>
+    <form onSubmit={(e) => loginSubmitHandler(e)} className="container col-6 mt-3">
+      <div className="mt-4">
+        <h1 className="text text-center text-primary">User Login</h1>
+        <hr />
+      </div>
+      <div className="mb-3 mt-3">
+        <input type="text"
+          className="form-control" name="username" value={user.username}
+          placeholder="Username" onChange={(e) => changeHandler(e)}
+        />
+        <small id="helpId" className="form-text text-danger">*Not your emailID but the username</small>
+      </div>
+      <div className="mb-1">
+        <input type="password"
+          className="form-control" name="password" value={user.password} 
+          placeholder="Password" onChange={(e) => changeHandler(e)}
+        />
+      </div>
+      <div className="mt-3 text-center">
+        <Button className="btn btn-success tezt-light" type="submit">Submit</Button>
+      </div>
+    </form>
   );
 };
 

@@ -6,7 +6,7 @@ const TransactionPage = () => {
     <div>
         <Form>
             <Form.Group>
-                <Form.Label className='form-label text-red-500'>Description</Form.Label>
+                <Form.Label className='form-label'>Description</Form.Label>
                 <Form.Control></Form.Control>
             </Form.Group>
         </Form>
